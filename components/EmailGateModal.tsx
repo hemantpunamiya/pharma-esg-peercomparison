@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-const FORMSPARK_URL = "https://submit-form.com/j6uvttw24dn";
+const FORMINIT_URL = "https://forminit.com/f/j6uvttw24dn";
 
 export default function EmailGateModal({
   onUnlock,
@@ -48,13 +48,11 @@ export default function EmailGateModal({
     setError("");
 
     try {
-      await fetch(FORMSPARK_URL, {
+      const form = new FormData();
+      form.append("fi-sender-email", trimmed);
+      await fetch(FORMINIT_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({ email: trimmed }),
+        body: form,
       });
     } catch {
       // Network error — still unlock, Formspark may have received it
